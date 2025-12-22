@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Baby 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+  color:white;
+  text-align:center;
+  overflow-x:hidden;
+}
+.hidden{display:none;}
+button{
+  padding:12px 22px;
+  border:none;
+  border-radius:25px;
+  background:#ff2f6d;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  margin:10px;
+}
+input{
+  padding:12px;
+  border-radius:20px;
+  border:none;
+  outline:none;
+  text-align:center;
+  font-size:16px;
+}
+.page{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+.slider img{
+  width:260px;
+  height:360px;
+  object-fit:cover;
+  border-radius:20px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.3);
+}
+.music audio{width:80%;max-width:350px;}
+.heart{
+  position:fixed;
+  top:-10px;
+  font-size:20px;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh);opacity:0;}
+}
+.kiss{
+  font-size:80px;
+  animation:pulse 1.2s infinite;
+}
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.3);}
+  100%{transform:scale(1);}
+}
+.popup{
+  background:rgba(255,255,255,0.2);
+  padding:20px;
+  border-radius:20px;
+  margin:20px;
+}
+.hint{
+  margin-top:15px;
+  font-size:14px;
+  opacity:0.9;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PASSWORD PAGE -->
+<div id="lock" class="page">
+  <h1>🔒 Only for You</h1>
+  <p>This little world is made just for you 💗</p>
+
+  <input id="pass" placeholder="enter password">
+
+  <div class="hint">
+    💡 Password is: <b>pariii</b> 💕
+  </div>
+
+  <button onclick="unlock()">Open 💌</button>
+</div>
+
+<!-- MAIN PAGE -->
+<div id="main" class="page hidden">
+  <h1>Hi Baby 💖</h1>
+  <p>You are my safe place</p>
+
+  <div class="slider">
+    <img id="slide" src="img1.jpg">
+  </div>
+
+  <div class="music">
+    <p>🎶 Our song</p>
+    <audio controls autoplay loop>
+      <source src="song.mp3">
+    </audio>
+  </div>
+
+  <button onclick="showPopup()">Tap me 🥰</button>
+  <button onclick="nextPage('letter')">Read my letter 💌</button>
+</div>
+
+<!-- POPUP PAGE -->
+<div id="popup" class="page hidden">
+  <div class="popup">
+    <h2>Hey sweeta 🥹</h2>
+    <p>
+      Babycakeeeee, cutu, my love, my babyboo 💗  
+      You are my favourite person.
+    </p>
+    <button onclick="nextPage('letter')">Next ❤️</button>
+  </div>
+</div>
+
+<!-- LETTER PAGE -->
+<div id="letter" class="page hidden">
+  <h1>My Letter 💕</h1>
+  <p>
+    Loving you feels like home.  
+    Even on days when everything feels heavy,  
+    thinking of you makes it lighter.  
+    You are my always.
+  </p>
+  <button onclick="nextPage('kiss')">One last thing 💋</button>
+</div>
+
+<!-- KISS PAGE -->
+<div id="kiss" class="page hidden">
+  <div class="kiss">💋</div>
+  <h2>I love you endlessly 💗</h2>
+</div>
+
+<script>
+const correctPassword="pariii";
+const pages=["lock","main","popup","letter","kiss"];
+let slideIndex=1;
+
+function unlock(){
+  if(document.getElementById("pass").value===correctPassword){
+    document.getElementById("lock").classList.add("hidden");
+    document.getElementById("main").classList.remove("hidden");
+  }else{
+    alert("Hehe wrong one baby 😤 try again");
+  }
+}
+
+function nextPage(id){
+  pages.forEach(p=>document.getElementById(p).classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+}
+
+function showPopup(){ nextPage("popup"); }
+
+setInterval(()=>{
+  slideIndex=slideIndex%5+1;
+  document.getElementById("slide").src=`img${slideIndex}.jpg`;
+},2500);
+
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=2+Math.random()*3+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),5000);
+},300);
+</script>
+
+</body>
+</html>
