@@ -14,7 +14,7 @@ body{
   text-align:center;
   overflow-x:hidden;
 }
-.hidden{display:none;}
+.hidden{display:none !important;}
 .page{
   min-height:100vh;
   display:flex;
@@ -46,26 +46,11 @@ button{
   height:360px;
   object-fit:cover;
   border-radius:20px;
-  box-shadow:0 10px 20px rgba(0,0,0,0.3);
-}
-.music audio{
-  width:80%;
-  max-width:350px;
 }
 .popup{
   background:rgba(255,255,255,0.2);
   padding:20px;
   border-radius:20px;
-}
-.heart{
-  position:fixed;
-  top:-10px;
-  font-size:20px;
-  animation:fall linear infinite;
-  pointer-events:none;
-}
-@keyframes fall{
-  to{transform:translateY(110vh);opacity:0;}
 }
 .kiss{
   font-size:80px;
@@ -81,114 +66,82 @@ button{
 
 <body>
 
-<!-- 🔒 PASSWORD PAGE -->
+<!-- 🔒 LOCK -->
 <div id="lock" class="page">
   <h1>🔒 Only for You</h1>
-  <p>
-    You already know the password.<br>
-    It’s <b>your name</b> 💗
-  </p>
-
+  <p>The password is <b>your name</b> 💗</p>
   <input id="pass" type="password" placeholder="enter password">
   <button onclick="unlock()">Open 💌</button>
 </div>
 
-<!-- 💖 MAIN PAGE -->
+<!-- 💖 MAIN -->
 <div id="main" class="page hidden">
   <h1>Hi Baby 💖</h1>
   <p>You are my safe place</p>
 
   <div class="slider">
-    <img id="slide" src="img1.jpg" alt="memory">
+    <img id="slide" src="img1.jpg">
   </div>
 
-  <div class="music">
-    <p>🎶 Our song</p>
-    <audio id="song" controls loop>
-      <source src="song.mp3" type="audio/mpeg">
-    </audio>
-  </div>
+  <audio id="song" controls loop>
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
 
   <button onclick="nextPage('popup')">Tap me 🥰</button>
-  <button onclick="nextPage('letter')">Read my letter 💌</button>
 </div>
 
-<!-- 💬 POPUP PAGE -->
+<!-- 💬 POPUP -->
 <div id="popup" class="page hidden">
   <div class="popup">
     <h2>Hey my love 🥹</h2>
-    <p>
-      Babycakeeeee, cutu, my love, my babyboo 💗<br>
-      You are my favourite person.
-    </p>
+    <p>You are my favourite person 💗</p>
     <button onclick="nextPage('letter')">Next ❤️</button>
   </div>
 </div>
 
-<!-- 💌 LETTER PAGE -->
+<!-- 💌 LETTER -->
 <div id="letter" class="page hidden">
   <h1>My Letter 💕</h1>
   <p>
     Loving you feels like home.<br>
-    Even on days when everything feels heavy,<br>
-    thinking of you makes it lighter.<br>
     You are my always and forever.
   </p>
   <button onclick="nextPage('kiss')">One last thing 💋</button>
 </div>
 
-<!-- 💋 KISS PAGE -->
+<!-- 💋 KISS -->
 <div id="kiss" class="page hidden">
   <div class="kiss">💋</div>
   <h2>I love you endlessly 💗</h2>
 </div>
 
 <script>
-/* 🔑 PASSWORD (ONLY THIS) */
 const correctPassword = "pariii";
-
-/* PAGES */
 const pages = ["lock","main","popup","letter","kiss"];
 let slideIndex = 1;
 
-/* 🔓 UNLOCK FUNCTION */
 function unlock(){
-  const entered = document.getElementById("pass").value
-    .trim()
-    .toLowerCase();
+  const entered = document.getElementById("pass").value.trim().toLowerCase();
 
   if(entered === correctPassword){
     document.getElementById("lock").classList.add("hidden");
     document.getElementById("main").classList.remove("hidden");
     document.getElementById("song").play();
   } else {
-    alert("That’s not it… but I still love you 💗");
+    alert("Wrong password 💔");
   }
 }
 
-/* 🔄 PAGE SWITCH */
 function nextPage(id){
-  pages.forEach(p=>document.getElementById(p).classList.add("hidden"));
+  pages.forEach(p => document.getElementById(p).classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
 }
 
-/* 🖼 IMAGE SLIDER */
 setInterval(()=>{
   slideIndex = slideIndex % 5 + 1;
-  document.getElementById("slide").src = `img${slideIndex}.jpg`;
+  document.getElementById("slide").src = "img" + slideIndex + ".jpg";
 },2500);
-
-/* 💖 FALLING HEARTS */
-setInterval(()=>{
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.innerHTML = "💖";
-  h.style.left = Math.random()*100 + "vw";
-  h.style.animationDuration = 2 + Math.random()*3 + "s";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),5000);
-},300);
 </script>
 
 </body>
-</html>
+  </html>
