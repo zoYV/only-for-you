@@ -29,6 +29,7 @@ input{
   border:none;
   font-size:16px;
   text-align:center;
+  outline:none;
 }
 button{
   padding:12px 24px;
@@ -47,7 +48,10 @@ button{
   border-radius:20px;
   box-shadow:0 10px 20px rgba(0,0,0,0.3);
 }
-.music audio{width:80%;max-width:350px;}
+.music audio{
+  width:80%;
+  max-width:350px;
+}
 .popup{
   background:rgba(255,255,255,0.2);
   padding:20px;
@@ -58,6 +62,7 @@ button{
   top:-10px;
   font-size:20px;
   animation:fall linear infinite;
+  pointer-events:none;
 }
 @keyframes fall{
   to{transform:translateY(110vh);opacity:0;}
@@ -76,7 +81,7 @@ button{
 
 <body>
 
-<!-- PASSWORD PAGE -->
+<!-- 🔒 PASSWORD PAGE -->
 <div id="lock" class="page">
   <h1>🔒 Only for You</h1>
   <p>
@@ -84,23 +89,22 @@ button{
     It’s either <b>your name</b>… or <b>your favourite emoji</b> 💗
   </p>
 
-  <input id="pass" placeholder="enter password">
-
+  <input id="pass" type="password" placeholder="enter password">
   <button onclick="unlock()">Open 💌</button>
 </div>
 
-<!-- MAIN PAGE -->
+<!-- 💖 MAIN PAGE -->
 <div id="main" class="page hidden">
   <h1>Hi Baby 💖</h1>
   <p>You are my safe place</p>
 
   <div class="slider">
-    <img id="slide" src="img1.jpg">
+    <img id="slide" src="img1.jpg" alt="memory">
   </div>
 
   <div class="music">
     <p>🎶 Our song</p>
-    <audio controls autoplay loop>
+    <audio id="song" controls loop>
       <source src="song.mp3" type="audio/mpeg">
     </audio>
   </div>
@@ -109,63 +113,72 @@ button{
   <button onclick="nextPage('letter')">Read my letter 💌</button>
 </div>
 
-<!-- POPUP PAGE -->
+<!-- 💬 POPUP PAGE -->
 <div id="popup" class="page hidden">
   <div class="popup">
     <h2>Hey my love 🥹</h2>
     <p>
-      Babycakeeeee, cutu, my love, my babyboo 💗  
+      Babycakeeeee, cutu, my love, my babyboo 💗<br>
       You are my favourite person.
     </p>
     <button onclick="nextPage('letter')">Next ❤️</button>
   </div>
 </div>
 
-<!-- LETTER PAGE -->
+<!-- 💌 LETTER PAGE -->
 <div id="letter" class="page hidden">
   <h1>My Letter 💕</h1>
   <p>
-    Loving you feels like home.  
-    Even on days when everything feels heavy,  
-    thinking of you makes it lighter.  
-    You are my always and forever 
+    Loving you feels like home.<br>
+    Even on days when everything feels heavy,<br>
+    thinking of you makes it lighter.<br>
+    You are my always and forever.
   </p>
   <button onclick="nextPage('kiss')">One last thing 💋</button>
 </div>
 
-<!-- KISS PAGE -->
+<!-- 💋 KISS PAGE -->
 <div id="kiss" class="page hidden">
   <div class="kiss">💋</div>
   <h2>I love you endlessly 💗</h2>
 </div>
 
 <script>
-/* 🔑 CHANGE PASSWORD HERE */
-const correctPassword = "pariii💗"; // ← put her name or emoji text here
+/* 🔑 PASSWORD */
+const correctPassword = "pariii💗".toLowerCase();
 
+/* PAGES */
 const pages = ["lock","main","popup","letter","kiss"];
 let slideIndex = 1;
 
+/* 🔓 UNLOCK */
 function unlock(){
-  const entered = document.getElementById("pass").value.trim().toLowerCase();
+  const entered = document.getElementById("pass").value
+    .trim()
+    .toLowerCase();
+
   if(entered === correctPassword){
     document.getElementById("lock").classList.add("hidden");
     document.getElementById("main").classList.remove("hidden");
+    document.getElementById("song").play();
   } else {
     alert("That’s not it… but I still love you 💗");
   }
 }
 
+/* 🔄 PAGE SWITCH */
 function nextPage(id){
   pages.forEach(p=>document.getElementById(p).classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
 }
 
+/* 🖼 IMAGE SLIDER */
 setInterval(()=>{
   slideIndex = slideIndex % 5 + 1;
   document.getElementById("slide").src = `img${slideIndex}.jpg`;
 },2500);
 
+/* 💖 FALLING HEARTS */
 setInterval(()=>{
   const h = document.createElement("div");
   h.className = "heart";
@@ -178,4 +191,4 @@ setInterval(()=>{
 </script>
 
 </body>
-</html>
+  </html>
