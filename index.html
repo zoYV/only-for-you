@@ -86,7 +86,7 @@ button{
   <h1>🔒 Only for You</h1>
   <p>
     You already know the password.<br>
-    It’s either <b>your name</b>… or <b>your favourite emoji</b> 💗
+    It’s <b>your name</b> 💗
   </p>
 
   <input id="pass" type="password" placeholder="enter password">
@@ -144,14 +144,14 @@ button{
 </div>
 
 <script>
-/* 🔑 PASSWORD */
-const correctPassword = "pariii".toLowerCase();
+/* 🔑 PASSWORD (ONLY THIS) */
+const correctPassword = "pariii";
 
 /* PAGES */
 const pages = ["lock","main","popup","letter","kiss"];
 let slideIndex = 1;
 
-/* 🔓 UNLOCK */
+/* 🔓 UNLOCK FUNCTION */
 function unlock(){
   const entered = document.getElementById("pass").value
     .trim()
@@ -191,4 +191,4 @@ setInterval(()=>{
 </script>
 
 </body>
-  </html>
+</html>
